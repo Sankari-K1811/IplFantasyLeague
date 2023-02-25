@@ -1,8 +1,6 @@
-FROM openjdk:8-jdk-alpine 
+FROM openjdk:8-jdk-alpine
 
-WORKDIR /app/
-
-COPY target/IplFantasyLeague-0.0.1-SNAPSHOT.jar/app/.IplFantasyLeague-0.0.1-SNAPSHOT.jar
+COPY target/IplFantasyLeague-0.0.1-SNAPSHOT.jar IplFantasyLeague-0.0.1-SNAPSHOT.jar
 
 EXPOSE 8080  
 
