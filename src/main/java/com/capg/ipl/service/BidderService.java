@@ -5,6 +5,7 @@ import java.util.List;
 import com.capg.ipl.entity.Bidder;
 import com.capg.ipl.entity.BiddingDetails;
 import com.capg.ipl.entity.MatchDetails;
+import com.capg.ipl.entity.Team;
 import com.capg.ipl.exception.BidAlreadyExistException;
 import com.capg.ipl.exception.BidNotFoundException;
 import com.capg.ipl.exception.MatchAlreadyInProgressException;
@@ -16,14 +17,16 @@ import com.capg.ipl.exception.UserNotFoundException;
 
 public interface BidderService {
 	
-	public Bidder registerBidder(Bidder bidder) throws UserAlreadyExistException; //san
-	public String bidderLogin(Bidder bidder) throws UserNotFoundException; //san
+	public Bidder registerBidder(Bidder bidder) throws UserAlreadyExistException; 
+	public String bidderLogin(Bidder bidder) throws UserNotFoundException; 
 	
-	public List<MatchDetails> viewAllMatches() throws MatchNotFoundException; //sha
+	public List<MatchDetails> viewAllMatches() throws MatchNotFoundException; 
 	public BiddingDetails addBid(BiddingDetails biddingDetails) throws MatchAlreadyInProgressException,MatchNotFoundException,BidAlreadyExistException;//fat
-	public void updateBid(long bidderId,long matchId,long teamId) throws BidNotFoundException,MatchAlreadyInProgressException,TeamNotFoundException;//sha
+	public void updateBid(long bidderId,long matchId,long teamId) throws BidNotFoundException,MatchAlreadyInProgressException;//sha
 	
-	public int viewPoints(long bidderId) throws UserNotFoundException;//ale
-	public void deleteBid(long biddingId) throws BidNotFoundException,MatchAlreadyInProgressException;//nishi
-    public String getResult(long matchId) throws MatchNotFoundException,MatchNotStartedException;//ale
+	public int viewPoints(long bidderId) throws UserNotFoundException;
+	
+	public Team getTeamById(long teamId) throws TeamNotFoundException;
+	public void deleteBid(long biddingId) throws BidNotFoundException,MatchAlreadyInProgressException;
+    public String getResult(long matchId) throws MatchNotFoundException,MatchNotStartedException;
 }

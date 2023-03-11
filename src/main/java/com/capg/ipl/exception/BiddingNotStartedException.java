@@ -4,6 +4,7 @@ public class BiddingNotStartedException extends Exception{
 	private String message;
 	public BiddingNotStartedException() {
 		super();
+		
 	}
 	public BiddingNotStartedException(String message) {
 		super();

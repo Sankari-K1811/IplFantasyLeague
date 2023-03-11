@@ -4,6 +4,7 @@ public class MatchNotStartedException extends Exception{
 	private String message;
 	public  MatchNotStartedException () {
 		super();
+		
 	}
 	public  MatchNotStartedException(String message) {
 		super();

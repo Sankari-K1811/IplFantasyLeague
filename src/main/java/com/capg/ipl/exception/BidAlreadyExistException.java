@@ -4,6 +4,7 @@ public class BidAlreadyExistException extends Exception{
 	private String message;
 	public BidAlreadyExistException() {
 		super();
+		
 	}
 	public BidAlreadyExistException(String message) {
 		super();

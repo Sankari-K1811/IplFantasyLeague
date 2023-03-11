@@ -20,9 +20,6 @@ public interface BidderRepository extends JpaRepository<Bidder, Long>{
 	@Query("select b from Bidder b where b.bidderName =:  bidderName")
 	public List<Bidder> findByName(@Param(value="bidderName") String bidderName);
 	
-//	@Query("select b from Bidder b where b.biddingDetails.matchDetails.matchId=:matchId")
-//	public List<Bidder> findByMatchId(@Param(value="matchId") long matchId);
-
 	public List<Bidder> findByBidderName(String bidderName);
 	
 }

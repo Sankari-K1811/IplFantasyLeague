@@ -8,6 +8,19 @@
 		<version>2.1.6.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	<profiles>
+<profile>
+<id>sonar</id>
+<activation>
+<activeByDefault>true</activeByDefault>
+</activation>
+<properties>
+<sonar.host.url>http://localhost:9000</sonar.host.url>
+<sonar.login>b36eedca2d51b1b04f9593f6bff9c224bcd005d7</sonar.login>
+</properties>
+</profile>
+ 
+</profiles>
 	<groupId>com.capg.ipl</groupId>
 	<artifactId>IplFantasyLeague</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -65,6 +78,12 @@
     <artifactId>springfox-swagger-ui</artifactId>
     <version>2.9.2</version>
 </dependency>
+<dependency>
+<groupId>org.sonarsource.scanner.maven</groupId>
+<artifactId>sonar-maven-plugin</artifactId>
+<version>3.2</version>
+</dependency>
+
 
   </dependencies>
 

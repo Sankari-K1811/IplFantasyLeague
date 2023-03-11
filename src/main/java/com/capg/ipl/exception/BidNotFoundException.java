@@ -4,6 +4,7 @@ public class BidNotFoundException extends Exception {
 	private String message;
 	public BidNotFoundException() {
 		super();
+
 	}
 	public BidNotFoundException(String message) {
 		super();

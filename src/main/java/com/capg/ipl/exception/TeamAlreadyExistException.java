@@ -4,6 +4,7 @@ public class TeamAlreadyExistException extends Exception{
 	private String message;
 	public TeamAlreadyExistException() {
 		super();
+		
 	}
 	public TeamAlreadyExistException(String message) {
 		super();

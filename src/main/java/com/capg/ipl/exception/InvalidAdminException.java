@@ -4,6 +4,7 @@ public class InvalidAdminException extends Exception{
 	private String message;
 	public InvalidAdminException() {
 		super();
+		
 	}
 	public InvalidAdminException(String message) {
 		super();

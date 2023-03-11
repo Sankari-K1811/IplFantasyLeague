@@ -19,11 +19,11 @@ public class BiddingDetails {
 	
 	@ManyToOne
 	@JoinColumn(name="bidder_id")
-	@JsonIgnoreProperties({"userName", "password","biddingDetails"})
+	@JsonIgnoreProperties({"mobileno","points","userName", "password","biddingDetails"})
 	private Bidder bidder;
 
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="match_id")
 	@JsonIgnoreProperties({"teamOne", "teamTwo","date","time","place","status","result","team"})
 	private MatchDetails matchDetails;
@@ -86,12 +86,14 @@ public class BiddingDetails {
 	public void setTeam(Team team) {
 		this.team = team;
 	}
-    
+
 
 	@Override
 	public String toString() {
-		return "BiddingDetails [biddingId=" + biddingId + ", bidderId=" + bidder + ", matchId=" + matchDetails + ", teamId=" + team + "]";
+		return "BiddingDetails [biddingId=" + biddingId + ", bidder=" + bidder.getBidderName() + ", matchDetails=" + matchDetails
+				+ ", team=" + team.getTeamName() + "]";
 	}
+    
 	
 	
 	

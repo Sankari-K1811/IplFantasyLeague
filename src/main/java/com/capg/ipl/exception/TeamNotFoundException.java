@@ -4,6 +4,7 @@ public class TeamNotFoundException extends Exception{
 	private String message;
 	public TeamNotFoundException() {
 		super();
+		
 	}
 	public TeamNotFoundException(String message) {
 		super();

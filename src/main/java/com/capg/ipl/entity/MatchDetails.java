@@ -64,7 +64,7 @@ public class MatchDetails {
 		return matchId;
 	}
 
-	public void setMatchId(int matchId) {
+	public void setMatchId(long matchId) {
 		this.matchId = matchId;
 	}
 

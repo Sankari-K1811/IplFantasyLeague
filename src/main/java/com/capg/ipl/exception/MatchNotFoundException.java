@@ -4,6 +4,7 @@ public class MatchNotFoundException extends Exception{
 	private String message;
 	public MatchNotFoundException() {
 		super();
+
 	}
 	public MatchNotFoundException(String message) {
 		super();

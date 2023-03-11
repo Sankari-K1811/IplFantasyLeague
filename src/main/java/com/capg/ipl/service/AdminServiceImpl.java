@@ -1,8 +1,4 @@
 package com.capg.ipl.service;
-
-
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.capg.ipl.entity.Admin;
 import com.capg.ipl.entity.Bidder;
-import com.capg.ipl.entity.BiddingDetails;
 import com.capg.ipl.entity.MatchDetails;
 import com.capg.ipl.entity.Team;
 import com.capg.ipl.exception.BidderNotFoundException;
@@ -84,7 +79,8 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public void updateMatch(long matchId,MatchDetails matchDetails) throws MatchNotFoundException,MatchAlreadyInProgressException {
-		if(matchRepo.existsById(matchId)) {
+		Optional<MatchDetails> match=matchRepo.findById(matchId);
+		if(match.isPresent()) {
 			MatchDetails md = matchRepo.getOne(matchId);
 			if(md.getResult()==0) {
 				md.setDate(matchDetails.getDate());
@@ -102,8 +98,9 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public void deleteMatchById(long matchId) throws MatchNotFoundException,MatchAlreadyInProgressException{
-		if(matchRepo.existsById(matchId)) {
-			MatchDetails md = matchRepo.findById(matchId).get();
+		Optional<MatchDetails> match=matchRepo.findById(matchId);
+		if(match.isPresent()) {
+			MatchDetails md = matchRepo.getOne(matchId);
 			 if(md.getResult()!=0) {
 			    throw new MatchAlreadyInProgressException();
 			 }
@@ -127,6 +124,7 @@ public class AdminServiceImpl implements AdminService{
 				b.setBidderId(bidders.getBidderId());
 			    b.setBidderName(bidders.getBidderName());
 			    b.setMobileNo(bidders.getMobileNo());
+			    b.setPoints(bidders.getPoints());
 			    biddingDetails.add(b);
 			});
 		if(bidderRepo.findAll().isEmpty()) {
@@ -138,8 +136,9 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public void updateScore(long bidderId) throws BidderNotFoundException {
-		if(bidderRepo.existsById(bidderId)) {
-			Bidder b = bidderRepo.findById(bidderId).get();
+		Optional<Bidder> bidder=bidderRepo.findById(bidderId);
+		if(bidder.isPresent()) {
+			Bidder b = bidderRepo.getOne(bidderId);
 			b.setPoints(b.getPoints()+1);
 			bidderRepo.save(b);
 		}
@@ -152,11 +151,12 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public void declareTeamResult(long matchId,long teamId) throws MatchNotFoundException{
-		if(matchRepo.existsById(matchId)) {
+		Optional<MatchDetails> match=matchRepo.findById(matchId);
+		if(match.isPresent()) {
 			MatchDetails md = matchRepo.getOne(matchId);
 			md.setResult(teamId);
 			md.setStatus("Completed");
-			Team teamWon = teamRepo.findById(teamId).get();
+			Team teamWon = teamRepo.getOne(teamId);
 			teamWon.setMatchesWon(teamWon.getMatchesWon()+1);
 			teamWon.setMatchesPlayed(teamWon.getMatchesPlayed()+1);
 			if(md.getTeamOne().getTeamId()
@@ -174,14 +174,6 @@ public class AdminServiceImpl implements AdminService{
 			}
 			teamRepo.save(teamWon);
 			matchRepo.save(md);
-//			List<Bidder> bidders = bidderRepo.findByMatchId(matchId);
-//			for(Bidder b:bidders) {
-//				if(((BiddingDetails) b.getBiddingDetails()).getTeam().getTeamId()==teamId) {
-//					int point = b.getPoints()+1;
-//					b.setPoints(point);
-//					bidderRepo.save(b);
-//				}
-//			}
 		}
 		else {
 			throw new MatchNotFoundException();
